@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Cumulus Suite]">
+  <test name="Cumulus Test(failed)">
+    <classes>
+      <class name="testcases.RunsTabDetailView">
+        <methods>
+          <include name="toVerifyThePresenceOfWebElementsUnderRunOverviewSectionForDetailView"/>
+          <include name="toVerifyRecordsAreSortedAsPerPFolderNumberColumn"/>
+          <include name="toVerifyAllTheLinksOnRunsTabForDetailView"/>
+          <include name="toCompareRunOverviewColumnValuesOfDetailViewWithListView"/>
+          <include name="toVerifyTheURLOfRunStatusLink"/>
+          <include name="defineObjects"/>
+        </methods>
+      </class> <!-- testcases.RunsTabDetailView -->
+      <class name="testcases.LogInApplication">
+        <methods>
+          <include name="logout"/>
+          <include name="launchAndLogin"/>
+        </methods>
+      </class> <!-- testcases.LogInApplication -->
+    </classes>
+  </test> <!-- Cumulus Test(failed) -->
+</suite> <!-- Failed suite [Cumulus Suite] -->

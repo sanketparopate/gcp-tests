@@ -1,0 +1,85 @@
+/*
+	build.gradle file for building and running Selenium tests
+	Example uses:
+	gradle clean test 		- Rebuild and run tests
+	gradle test 			- Run tests only
+	gradle cleanTest test  	- Force tests to be run even if up to date
+	gradle viewResults		- Displays the report of test results (Windows only)
+*/
+
+// Support for building and testing
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+// (Optional) configure name and version for jar
+jar {
+	version  '1.0'
+	baseName 'SeleniumStarter'
+	extension '.jar'
+}
+
+// Cf. Maven properties
+ext.junitVersion = '4.11'
+ext.seleniumVersion = '2.41.0'
+
+
+// Cf. Maven <dependencies>
+      dependencies {
+/*compile group: 'junit', name: 'junit', version: junitVersion*/
+compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version:seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version:seleniumVersion
+
+compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version:seleniumVersion
+compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:seleniumVersion
+compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.13'
+compile group: 'org.testng', name: 'testng', version: '6.8.5'
+// https://mvnrepository.com/artifact/com.jcraft/jsch
+compile group: 'com.jcraft', name: 'jsch', version: '0.1.53'
+// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
+// https://mvnrepository.com/artifact/au.com.bytecode/opencsv
+compile group: 'au.com.bytecode', name: 'opencsv', version: '2.4'
+// https://mvnrepository.com/artifact/org.apache.poi/poi
+compile group: 'org.apache.poi', name: 'poi', version: '3.14'
+
+
+// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.13'
+
+// https://mvnrepository.com/artifact/dom4j/dom4j
+compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
+// https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans
+compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '2.3.0'
+// https://mvnrepository.com/artifact/net.sf.opencsv/opencsv
+compile group: 'net.sf.opencsv', name: 'opencsv', version: '2.3'
+
+// https://mvnrepository.com/artifact/com.assertthat/selenium-shutterbug
+compile group: 'com.assertthat', name: 'selenium-shutterbug', version: '0.6'
+
+// https://mvnrepository.com/artifact/com.relevantcodes/extentreports
+compile group: 'com.relevantcodes', name: 'extentreports', version: '2.41.2'
+
+
+}
+
+
+// A custom task to show report on tests that have run
+task viewResults(dependsOn: ['test'] , type:Exec) {
+		workingDir './build/reports/tests'		
+		commandLine 'cmd', '/c', 'start index.html'	
+}
+
+task runTests(type: JavaExec, dependsOn: 'classes') {
+    main = 'org.testng.TestNG'
+    classpath = files("./src/test/resources",
+                      project.sourceSets.main.compileClasspath,
+                      project.sourceSets.test.compileClasspath,
+                      project.sourceSets.main.runtimeClasspath,
+                      project.sourceSets.test.runtimeClasspath)
+    args = ["-parallel",  "methods", "-threadcount", "2", "-d", "./build/test-output", "./individualtest.xml"]
+}
+// Resolve Maven dependencies as Maven does
+repositories {
+	mavenCentral()
+	mavenLocal() 
+}

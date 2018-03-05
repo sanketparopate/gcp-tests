@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="6" name="Suite" parallel="methods">
+  <test name="Test">
+    <classes>
+      <class name="testcases.RunTestCases">
+      <methods>
+        <exclude name="toVerifyPresenceOfBasicElementsOnViewPage" />
+        <exclude name="toVerifyBasicExtrapolationFlow" />
+        <exclude name="toVerifyExtrapolationTableHeaders" />
+        <exclude name="toVerifyDoubleClickDetailView"/>
+        <exclude name="toVerifyPresenceOfBasicElementsOnDetailPage"/>
+        <exclude name="toVerifyBasicFilterFlow"/>
+        <exclude name="toCompareColumnsOfListViewWithDetailView"/>
+        <exclude name="toVerifyThePresenceOfWebElementsUnderRunOverviewSectionForDetailView"/>
+        <exclude name="toCompareRunOverviewColumnValuesOfDetailViewWithListView"/>
+        <exclude name="toVerifyTheURLOfPartiallyFailedRunStatusLink"/>
+        <include name="toVerifyRecordsAreSortedAsPerPFolderNumberColumn"/>
+      </methods>
+      </class>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
